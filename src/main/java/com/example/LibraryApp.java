@@ -1,10 +1,11 @@
 package com.example;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class LibraryApp {
     public static void main(String[] args) throws Exception {
@@ -13,7 +14,7 @@ public class LibraryApp {
             new TypeToken<List<Visitor>>(){}.getType()
         );
 
-        System.out.println("\n=== УНИКАЛЬНЫЕ КНИГИ В ИЗБРАННОМ ===");
+        System.out.println("\nКниги в избранном");
         
         var uniqueBooks = visitors.stream()
             .flatMap(v -> v.favoriteBooks.stream())
@@ -27,9 +28,9 @@ public class LibraryApp {
             .collect(Collectors.toList());
         
         uniqueBooks.forEach(book -> 
-            System.out.println("📖 " + book.name + " - " + book.author)
+            System.out.println(book.name + " - " + book.author)
         );
         
-        System.out.println("\nВсего уникальных книг: " + uniqueBooks.size());
+        System.out.println("\nВсего избранных книг книг: " + uniqueBooks.size());
     }
 }

@@ -1,9 +1,10 @@
 package com.example;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class MaxBooksFinder {
     public static void main(String[] args) throws Exception {
@@ -12,7 +13,7 @@ public class MaxBooksFinder {
             new TypeToken<List<Visitor>>(){}.getType()
         );
 
-        System.out.println("=== МАКСИМАЛЬНОЕ ЧИСЛО КНИГ В ИЗБРАННОМ ===");
+        System.out.println("Максимальное число книг");
         
         int maxBooks = visitors.stream()
             .mapToInt(v -> v.favoriteBooks.size())
@@ -25,11 +26,11 @@ public class MaxBooksFinder {
         visitors.stream()
             .filter(v -> v.favoriteBooks.size() == maxBooks)
             .forEach(v -> {
-                System.out.println("👤" + v.name + " " + v.surname + " - " + v.favoriteBooks.size() + " книг");
-                System.out.println("📞" + v.phone);
-                System.out.println("📚 Книги:");
+                System.out.println(v.name + " " + v.surname + " - " + v.favoriteBooks.size() + " книг");
+                System.out.println(v.phone);
+                System.out.println("Книги:");
                 v.favoriteBooks.forEach(book -> 
-                    System.out.println("      - " + book.name + " (" + book.author + ")")
+                    System.out.println(" - " + book.name + " (" + book.author + ")")
                 );
                 System.out.println();
             });

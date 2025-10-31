@@ -1,10 +1,11 @@
 package com.example;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 class SMS {
     public String phoneNumber;
@@ -17,7 +18,7 @@ class SMS {
     
     @Override
     public String toString() {
-        return "📱 " + phoneNumber + ": " + message;
+        return phoneNumber + ": " + message;
     }
 }
 
@@ -28,14 +29,14 @@ public class SMSNotifier {
             new TypeToken<List<Visitor>>(){}.getType()
         );
 
-        System.out.println("=== SMS-РАССЫЛКА ДЛЯ ПОДПИСЧИКОВ ===");
+        System.out.println("SMS Рассылка");
         
         List<Visitor> subscribedVisitors = visitors.stream()
             .filter(v -> v.subscribed)
             .collect(Collectors.toList());
         
         if (subscribedVisitors.isEmpty()) {
-            System.out.println("Нет подписанных посетителей для рассылки");
+            System.out.println("Нет посетителей для рассылки");
             return;
         }
         
@@ -44,7 +45,7 @@ public class SMSNotifier {
             .average()
             .orElse(0.0);
         
-        System.out.printf("Среднее количество книг у подписчиков: %.1f%n%n", averageBooks);
+        System.out.printf("Среднее количество книг: %.1f%n%n", averageBooks);
         
         List<SMS> smsList = subscribedVisitors.stream()
             .map(v -> {
@@ -65,7 +66,7 @@ public class SMSNotifier {
         
         smsList.forEach(System.out::println);
         
-        System.out.println("\n=== СТАТИСТИКА РАССЫЛКИ ===");
+        System.out.println("\nРассылка");
         long bookworms = smsList.stream().filter(s -> s.message.equals("you are a bookworm")).count();
         long readMore = smsList.stream().filter(s -> s.message.equals("read more")).count();
         long fine = smsList.stream().filter(s -> s.message.equals("fine")).count();
